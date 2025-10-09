@@ -81,9 +81,12 @@ class EmailSender:
         Returns:
             HTML renderizado
         """
-        # Paso 1: Renderizar variables con Jinja2
-        jinja_template = Template(mjml_content)
-        mjml_rendered = jinja_template.render(**variables)
+        if variables:
+            # Paso 1: Renderizar variables con Jinja2
+            jinja_template = Template(mjml_content)
+            mjml_rendered = jinja_template.render(**variables)
+        else:
+            mjml_rendered = mjml_content
 
         # Paso 2: Convertir MJML a HTML
         html_result = mjml_to_html(mjml_rendered)
@@ -168,7 +171,7 @@ class EmailSender:
         to_email: str,
         subject: str,
         template_path: Union[str, Path],
-        variables: Dict[str, any],
+        variables: Optional[Dict[str, any]] = None,
         attachments: Optional[List[Union[str, Path]]] = None,
         cc: Optional[List[str]] = None,
         bcc: Optional[List[str]] = None,
@@ -291,7 +294,7 @@ async def main():
         from_name=os.getenv("EMAIL_FROM_NAME"),
     )
 
-    # Ejemplo 1: Enviar un correo individual
+    # # Ejemplo 1: Enviar un correo individual
     success = await email_sender.send_email(
         to_email="destinatario@example.com",
         subject="Bienvenido a nuestra plataforma",
@@ -307,7 +310,18 @@ async def main():
     if success:
         print("Correo enviado exitosamente")
 
-    # Ejemplo 2: Enviar correos masivos personalizados
+    # Ejemplo 2: Enviar un correo individual con estilos y sin variables
+    success = await email_sender.send_email(
+        to_email="destinatario@example.com",
+        subject="Bienvenido a nuestra plataforma",
+        template_path="templates/convention.mjml",
+    )
+
+    if success:
+        print("Correo enviado exitosamente")
+
+    # Ejemplo 3: Enviar correos masivos personalizados
+    # TODO. Permitir no enviar variables en el correo, validando si es vacio (False), omitir ese paso
     recipients = [
         {
             "email": "usuario1@example.com",
