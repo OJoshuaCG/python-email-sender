@@ -1,0 +1,20 @@
+<mjml>
+  <mj-body>
+    <mj-section>
+      <mj-column>
+        <mj-text font-size="20px" color="#F45E43">
+          ¡Hola {{ nombre }}!
+        </mj-text>
+        <mj-text>
+          Bienvenido a nuestra plataforma. Tu código de activación es: <strong>{{ codigo_activacion }}</strong>
+        </mj-text>
+        <mj-text>
+          Fecha de registro: {{ fecha }}
+        </mj-text>
+        <mj-button href="https://tuapp.com/activar">
+          Activar cuenta
+        </mj-button>
+      </mj-column>
+    </mj-section>
+  </mj-body>
+</mjml>
