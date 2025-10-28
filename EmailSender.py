@@ -304,7 +304,7 @@ async def main():
             "codigo_activacion": "ABC123",
             "fecha": "06 de Octubre, 2025",
         },
-        attachments=["documents/example.pdf"],
+        attachments=["attachments/example.pdf"],
     )
 
     if success:
